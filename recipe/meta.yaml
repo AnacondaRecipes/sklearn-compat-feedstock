@@ -10,17 +10,17 @@ source:
   sha256: 74f8267613249d599aa3a2f2503af32fa51bce0800b1b0b0a57b52354402454e
 
 build:
-  noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
+  skip: True # [py<38]
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python
     - hatchling
     - pip
   run:
-    - python >={{ python_min }}
+    - python
     - scikit-learn >=1.2,<1.7
 
 test:
@@ -29,7 +29,6 @@ test:
   commands:
     - pip check
   requires:
-    - python {{ python_min }}
     - pip
 
 about:
@@ -39,8 +38,9 @@ about:
     This package provides a set of utilities to make scikit-learn estimators
     compatible with different versions of scikit-learn.
   dev_url: https://github.com/sklearn-compat/sklearn-compat
-  doc_url: https://sklearn-compat.readthedocs.io/en
+  doc_url: https://sklearn-compat.readthedocs.io/
   license: BSD-3-Clause
+  license_family: BSD
   license_file: LICENSE
 
 extra:
