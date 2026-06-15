@@ -1,8 +1,8 @@
 {% set name = "sklearn-compat" %}
-{% set version = "0.1.5" %}
+{% set version = "0.1.6" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -10,28 +10,28 @@ source:
   sha256: 1a0c3a2f384100e034def49ee5a6cfe984a826f79d032eb559f10445e012b02c
 
 build:
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
-  skip: True # [py<38]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true # [py<38]
 
 requirements:
   host:
+    - pip
     - python
     - hatchling
-    - pip
   run:
     - python
-    - scikit-learn >=1.2,<1.9
+    - scikit-learn >=1.2,<1.10
 
 test:
+  source_files:
+    - tests
   imports:
     - sklearn_compat
     - sklearn_compat.utils
-  source_files:
-    - tests/
   commands:
     - pip check
-    - pytest -v tests/
+    - pytest -v tests
   requires:
     - pip
     - pytest
